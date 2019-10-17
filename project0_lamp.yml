@@ -1,0 +1,78 @@
+---
+- hosts: localhost
+  tasks:
+  - name: get epel-release for php
+    become: yes
+    yum: pkg=epel-release state=latest
+    when: ansible_os_family == "RedHat"
+  - name: get yum-utils
+    become: yes
+    yum: pkg=yum-utils state=latest
+    when: ansible_os_family == "RedHat"
+  - name: resolve timezone 
+    become: yes
+    copy:
+      src: /usr/share/zoneinfo/US/Pacific
+      dest: /etc/localtime
+    when: ansible_os_family == "RedHat"
+  - name: install all needed packages (for RedHat)
+    become: yes
+    yum: pkg={{ item }} state=latest
+    with_items:
+    - curl
+    - git
+    - httpd
+    - mariadb
+    - sed
+    - zip
+    - php
+    - php-mysql
+    - php-mbstring
+    - php-cli
+    - php-curl
+    - php-gd
+    - php-xml
+    - mod_ssl #ssl stuff
+    when: ansible_os_family == "RedHat"
+  - name: install all needed packages (for Debian)
+    become: yes
+    apt: pkg={{ item }} state:latest
+    with_items:
+    - apache2
+    - curl
+    - git
+    - msql-client
+    - sed
+    - zip
+    - libapache2-mod-php
+    - php
+    - php-mysql
+    - php-mbstring
+    - php-cli
+    - php-curl
+    - php-gd
+    - php-xml
+    when: ansible_os_family == "Debian"
+  - name: enable ssl through ssl.conf (RedHat)
+    become: yes
+    lineinfile:
+      path: /etc/httpd/conf.d/ssl.conf
+      insertbefore: '## SSL Virtual Host Content'
+      line: NameVirtualHost *:443
+    when: ansible_os_family == "Redhat"
+  - name: clone index.html from our private repo
+    become: yes
+  #  git: repo=https://github.com/ronthedistance/DowntimeRus/blob/master/index.html dest=/var/www/html
+    git: repo=https://github.com/FurenchiFurai/furenchifurai.github.io/blob/master/index.html dest=/var/www/html
+  - name: start httpd on boot (RedHat)
+    become: yes
+    service:
+      name: httpd
+      state: started
+    when: ansible_os_family == "RedHat"
+  - name: start apache2 on boot (Debian)
+    become: yes
+    service:
+      name: apache2
+      state: started
+    when: ansible_os_family == "Debian"
