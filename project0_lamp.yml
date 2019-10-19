@@ -36,7 +36,7 @@
     when: ansible_os_family == "RedHat"
   - name: install all needed packages (for Debian)
     become: yes
-    apt: pkg={{ item }} state:latest
+    apt: pkg={{ item }} state=latest
     with_items:
     - apache2
     - curl
@@ -53,17 +53,36 @@
     - php-gd
     - php-xml
     when: ansible_os_family == "Debian"
-  - name: enable ssl through ssl.conf (RedHat)
+  #enables SSL on Redhat by adding a line and commenting out the default 
+  - name: enable ssl through ssl.conf part 1 (RedHat)
     become: yes
     lineinfile:
       path: /etc/httpd/conf.d/ssl.conf
       insertbefore: '## SSL Virtual Host Content'
       line: NameVirtualHost *:443
-    when: ansible_os_family == "Redhat"
-  - name: clone index.html from our private repo
+    when: ansible_os_family == "RedHat"
+  - name: enable ssl through ssl.conf part 2 (RedHat)
     become: yes
-  #  git: repo=https://github.com/ronthedistance/DowntimeRus/blob/master/index.html dest=/var/www/html
-    git: repo=https://github.com/FurenchiFurai/furenchifurai.github.io/blob/master/index.html dest=/var/www/html
+    replace:
+      path: /etc/httpd/conf.d/ssl.conf
+      regexp: "<VirtualHost _default_:443>"
+      replace: "#<VirtualHost _default_:443>"
+    when: ansible_os_family == "RedHat"
+  #enables SSL on Debian through a module, must be enabled and cert/private keyfiles must be added
+  #to designated folders manually 
+  - name: enable ssl through mod_ssl part 1 (Debian)
+    become: yes
+    command: a2enmod ssl
+    when: ansible_os_family == "Debian"
+  - name: enable ssl through mod_ssl part 2 (Debian)
+    become: yes
+    command: a2ensite default-ssl
+    when: ansible_os_family == "Debian"
+  #cloning a static index.html page from our github repo
+  - name: clone index.html from our repo
+    become: yes
+    git: repo=https://github.com/cacaocat-syr/buntu.git dest=/var/www/html
+  #starting up apache2/httpd on boot   
   - name: start httpd on boot (RedHat)
     become: yes
     service:
