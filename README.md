@@ -13,11 +13,11 @@ Task Breakdown
 
 All documentation is in our wiki, however here are some quicklinks to respective areas
 
-[Infrastructure](https://github.com/ronthedistance/DowntimeRus/wiki/Infrastructure-Diagram)
-[Route Tables](https://github.com/ronthedistance/DowntimeRus/wiki/Route-Tables)
-[SSH Key Pairs](https://github.com/ronthedistance/DowntimeRus/wiki/Setting-up-multiple-Key-Pairs)
-[DNS Setup](https://github.com/ronthedistance/DowntimeRus/wiki/Setting-up-your-DNS)
-[EC2 Instance Setup](https://github.com/ronthedistance/DowntimeRus/wiki/Setting-up-your-EC2-instance)
-[VPC Networking Setup](https://github.com/ronthedistance/DowntimeRus/wiki/Setting-up-your-VPC-networking)
-[Subnetting](https://github.com/ronthedistance/DowntimeRus/wiki/Subnetting)
-[Ansible Playbook](https://github.com/ronthedistance/DowntimeRus/wiki/Using-Ansible-for-this-project)
+- [Infrastructure](https://github.com/ronthedistance/DowntimeRus/wiki/Infrastructure-Diagram)
+- [Route Tables](https://github.com/ronthedistance/DowntimeRus/wiki/Route-Tables)
+- [SSH Key Pairs](https://github.com/ronthedistance/DowntimeRus/wiki/Setting-up-multiple-Key-Pairs)
+- [DNS Setup](https://github.com/ronthedistance/DowntimeRus/wiki/Setting-up-your-DNS)
+- [EC2 Instance Setup](https://github.com/ronthedistance/DowntimeRus/wiki/Setting-up-your-EC2-instance)
+- [VPC Networking Setup](https://github.com/ronthedistance/DowntimeRus/wiki/Setting-up-your-VPC-networking)
+- [Subnetting](https://github.com/ronthedistance/DowntimeRus/wiki/Subnetting)
+- [Ansible Playbook](https://github.com/ronthedistance/DowntimeRus/wiki/Using-Ansible-for-this-project)
