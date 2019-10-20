@@ -22,5 +22,9 @@ All documentation is in our wiki, however here are some quicklinks to respective
 - [Subnetting](https://github.com/ronthedistance/DowntimeRus/wiki/Subnetting)
 - [Ansible Playbook](https://github.com/ronthedistance/DowntimeRus/wiki/Using-Ansible-for-this-project)
 
+#### Ansible Playbook
+
+The task was to create a LAMP webserver that directed to a static html page. To run the playbook, refer to the "Ansible Playbook" link above.
+
 #### Website Link
 https://www.downtimerus.net/
